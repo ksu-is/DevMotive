@@ -7,6 +7,9 @@ from pywebio.session import *
 
 # List of developer motivation messages
 messages = [
+    "Debugging is a part of learning, not a sign of failure."
+    "Errors are clues, not roadblocks."
+    "Great developers are built through patience and pratice"
     
 ]
 
