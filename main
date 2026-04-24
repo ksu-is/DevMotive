@@ -7,29 +7,48 @@ from pywebio.session import *
 
 # List of developer motivation messages
 messages = [
-    "Debugging is a part of learning, not a sign of failure."
-    "Errors are clues, not roadblocks."
-    "Great developers are built through patience and pratice"
-    
-]
+    "Debugging is a part of learning, not a sign of failure.",
+    "Errors are clues, not roadblocks.",
+    "Great developers are built through patience and pratice",
+    "Your future self will thank you for practicing today"]
 
-def show_message():
+def get_message(_):
     clear()
-    put_markdown("# DevBoost")
+
+    put_html(
+        '<p align="left>'
+        '<h2>DevMotive</h2>'
+        '</p>'
+    )
+
     put_text("Your daily motivation for coding:")
     put_text("")
     
     message = random.choice(messages)
-    put_success(message)
+     
+    style(put_text(message), 'color:blue; font-size: 30px')
     
     put_text("")
+    
     put_buttons(
-        ["Show Another Message"],
-        onclick=[lambda: show_message()]
+        [dict(label="Show Motivation", value='motivation', color='outline-success')],
+        onclick=get_message
     )
 
 def app():
-    show_message()
+    put_html(
+        '<p align="left">'
+        '<h2>💻 DevMotive</h2>'
+        '</p>'
+
+    )
+
+
+put_buttons(
+    [dict(label="Show Motivation", value='motivation', color='outline-success')],
+    onclick = get_message
+)
+hold()
 
 if __name__ == "__main__":
     start_server(app, port=8080, debug=True)
