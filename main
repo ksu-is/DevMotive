@@ -1,9 +1,8 @@
 import random
-from turtle import colormode
 from pywebio import start_server
-from pywebio.input import *
 from pywebio.output import *
-from pywebio.session import *
+from pywebio.session import hold
+
 
 
 # List of developer motivation messages
@@ -13,7 +12,6 @@ messages = [
     "Errors are clues, not roadblocks.",
     "Great developers are built through patience and pratice",
     "Your future self will thank you for practicing today"
-""
     ]
 
     #adding programming quotes
@@ -21,21 +19,50 @@ quotes = [
     "“Programming isn’t about what you know; it’s about what you can figure out.” – Chris Pine, Learn to Program",
 "“You might not think that programmers are artists, but programming is an extremely creative profession. It’s logic-based creativity.” – John Romero, video game developer and programmer",
 "“Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.” – Patrick McKenzie, software engineer",
-"“Learning to write programs stretches your mind, and helps you think better, creates a way of thinking about things that I think is helpful in all domains.” – Bill Gates, Microsoft co-founder"
+"“Learning to write programs stretches your mind, and helps you think better, creates a way of thinking about things that I think is helpful in all domains.” – Bill Gates, Microsoft co-founder",
+"“Code is like humor. When you have to explain it, it’s bad.” – Cory House",
+"“The function of good software is to make the complex appear to be simple.” – Grady Booch",
+"“No one in the brief history of computing has ever written a piece of perfect software. It’s unlikely that you’ll be the first.” – Andy Hunt",
+"“Making code do what it’s supposed to do is the easy part. Handling the myriad ways it can go wrong is the real work.” – Aaron Lozier",
+"“No matter which field of work you want to go in, it is of great importance to learn at least one programming language.” – Ram Ray",
+"“Learning to write programs stretches your mind, and helps you think better, creates a way of thinking about things that I think is helpful in all domains.” – Bill Gates"
 ]
 
 challenges = [
     "Create a program that counts the vowels in a sentence.",
     "Write a function that finds the largest number in a list.",
     "Create a program that reverses a string.",
-    "Build a simple calculator that can add, subtract, multiply, and divide."
+    "Build a simple calculator that can add, subtract, multiply, and divide.",
+    "Create a program that counts how many words are in a sentence",
+    "Create a password generator",
+    "Create a program that checks if a number is even or odd"
+
 ]
 
 tips_advice = ["Read the error message carefully",
+"Read other peoples code for practice",
+"Enhance your overall problem-solving skills",
+"Find a good mentor",
+"Never give up!",
+"Break big problems into smaller steps",
+"Practice with small projects",
+"Test your code often",
+"Use comments to keep tracking of what your code is doing"
 ]
 
 
+
+def show_header():
+    put_html(
+        '<p align="left">'
+        '<h2>💻DevMotive </h2>'
+        '</p>'
+    )
     
+def reset_screen():
+    clear()
+    show_header()
+    show_buttons()
 
 def button_click(btn):
     if btn == 'motivation':
@@ -46,16 +73,11 @@ def button_click(btn):
         get_challenge(btn)
     elif btn == "tips_advice":
         get_tips_advice(btn)
+    
 
 def get_tips_advice(_):
-    clear()
-    show_buttons()
+    reset_screen()
 
-    put_html(
-        '<p align="left>'
-        '<h2>DevMotive Tips and Advice</h2>'
-        '</p>'
-    )
 
     put_text("We think you should know these cool coding tips to help on your journey as a new developer! ")
     put_text("")
@@ -64,18 +86,12 @@ def get_tips_advice(_):
      
     style(put_text(tips_nadvice), 'color:red; font-size: 30px')
     
-    put_text("")
+   
     
 
 def get_message(_):
-    clear()
-    show_buttons()
-
-    put_html(
-        '<p align="left>'
-        '<h2>DevMotive</h2>'
-        '</p>'
-    )
+    reset_screen()
+  
 
     put_text("Your daily motivation for coding:")
     put_text("")
@@ -84,54 +100,38 @@ def get_message(_):
      
     style(put_text(message), 'color:blue; font-size: 30px')
     
-    put_text("")
+   
   
 def get_challenge(_):
-    clear()
-    show_buttons()
+    reset_screen()
+  
 
-    put_html(
-        '<p align="left">'
-        '<h2>DevMotive Challenges</h2>'
-        '</p>'
-    )
-
-    put_text("Your daily coding challenege: ")
+    put_text("Your daily coding challenge: ")
     put_text("")
 
     challenge = random.choice(challenges)
 
     style(put_text(challenge), 'color:pink; font-size: 30px')
-    put_text("")
+    
 
 
 def get_quote(_):
-    clear()
-    show_buttons()
-
-    put_html(
-        '<p align="left">'
-        '<h2>DevMotive Quotes</h2>'
-        '</p>'
-
-    )
+    reset_screen()
+   
     put_text("Coding Quotes: ")
     put_text("")
     quote = random.choice(quotes)
 
     style(put_text(quote), 'color:green; font-size: 30px')
-    put_text("")
+   
 
 
 def app():
-    put_html(
-        '<p align="left">'
-        '<h2>💻 DevMotive</h2>'
-        '</p>'
-
-    )
+    show_header()
     show_buttons()
     hold()
+
+
 
 def show_buttons():
     put_buttons([
@@ -139,6 +139,7 @@ def show_buttons():
         dict(label="Quote", value='quote', color='outline-primary'),
         dict(label="Challenege", value='challenge', color='outline-warning'),
         dict(label="Tips & Advice", value='tips_advice', color='outline-info'),
+        
     ], onclick=button_click
     )
 
